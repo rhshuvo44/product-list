@@ -11,7 +11,7 @@ const ProductDetails = () => {
 
   return (
     <Card>
-      <div className="flex justify-between items-center gap-2 space-x-4 ">
+      <div className="flex justify-between items-center gap-2 space-x-4 flex-col md:flex-row">
         <div className="">
           <Image width={400} src={product.thumbnail} alt={product.title} />
         </div>
