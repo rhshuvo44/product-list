@@ -1,8 +1,8 @@
 import { Button, Table } from "antd";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Product, useGetProductsQuery } from "../redux/api/api";
 
-// import { useHistory } from "react-router-dom";
 
 const ProductTable = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -11,19 +11,15 @@ const ProductTable = () => {
     limit: pageSize,
     skip: (currentPage - 1) * pageSize,
   });
+  const navigate = useNavigate();
 
-  
   const columns = [
     {
       title: "Title",
       dataIndex: "title",
       key: "title",
     },
-    {
-      title: "Description",
-      dataIndex: "description",
-      key: "description",
-    },
+
     {
       title: "Category",
       dataIndex: "category",
@@ -40,13 +36,20 @@ const ProductTable = () => {
       key: "price",
     },
     {
+      title: "Stock",
+      dataIndex: "stock",
+      key: "stock",
+    },
+    {
+      title: "Rating",
+      dataIndex: "rating",
+      key: "rating",
+    },
+    {
       title: "Action",
       key: "action",
       render: (_: any, record: Product) => (
-        <Button
-          type="link"
-          // onClick={() => navigate(`/product/${record.id}`)}
-        >
+        <Button type="link" onClick={() => navigate(`/product/${record.id}`)}>
           View Details
         </Button>
       ),
@@ -61,7 +64,7 @@ const ProductTable = () => {
       <h1 className="font-bold text-3xl text-center mb-2">Product List</h1>
       <div className="w-full mx-auto h-screen">
         <Table
-        bordered
+          bordered
           columns={columns}
           dataSource={data?.products}
           rowKey="id"

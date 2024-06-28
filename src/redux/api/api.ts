@@ -8,7 +8,17 @@ export interface Product {
     price: number;
     thumbnail: string;
     category: string,
-    brand: string
+    brand: string,
+    sku: string
+    stock: number;
+    rating: number
+    tags: string[]
+    images: string[];
+    reviews: {
+        rating: number,
+        comment: string,
+        reviewerName: string,
+    }[];
 
 }
 

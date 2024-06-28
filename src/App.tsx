@@ -4,10 +4,12 @@ import ProductPages from "./pages/ProductPages";
 
 function App() {
   return (
-    <Routes>
-      <Route path="/" element={<ProductPages />} />
-      <Route path="/:id" element={<ProductDetails />} />
-    </Routes>
+    <div className="p-20 w-full h-full">
+      <Routes>
+        <Route path="/" element={<ProductPages />} />
+        <Route path="/product/:id" element={<ProductDetails />} />
+      </Routes>
+    </div>
   );
 }
 
