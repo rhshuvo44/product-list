@@ -1,18 +1,17 @@
-import { Route, Routes } from "react-router-dom";
-import ProductDetails from "./component/ProductDetails";
-import ProductPages from "./pages/ProductPages";
-import EditProduct from "./component/EditProduct";
 import { Layout } from "antd";
-import { Content, Footer, Header } from "antd/es/layout/layout";
-import { Link } from "react-router-dom";
+import { Content, Header } from "antd/es/layout/layout";
+import { Route, Routes } from "react-router-dom";
+import EditProduct from "./component/EditProduct";
+import ProductDetails from "./component/ProductDetails";
+import FooterComponent from "./component/layout/FooterComponent";
+import Navbar from "./component/layout/Navbar";
+import ProductPages from "./pages/ProductPages";
 
 function App() {
   return (
     <Layout>
       <Header>
-        <div style={{ color: "white", fontSize: "20px" }}>
-          <Link to="/">Product Management</Link>
-        </div>
+        <Navbar />
       </Header>
       <Content style={{ padding: "50px" }}>
         <Routes>
@@ -21,7 +20,7 @@ function App() {
           <Route path="/edit-product/:id" element={<EditProduct />} />
         </Routes>
       </Content>
-      <Footer style={{ textAlign: "center" }}>Product Management ©2024</Footer>
+      <FooterComponent />
     </Layout>
   );
 }
