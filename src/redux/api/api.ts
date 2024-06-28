@@ -7,6 +7,9 @@ export interface Product {
     description: string;
     price: number;
     thumbnail: string;
+    category: string,
+    brand: string
+
 }
 
 // Define a service using a base URL and expected endpoints
@@ -19,8 +22,8 @@ export const baseApi = createApi({
         }),
         getProduct: builder.query<Product, number>({
             query: (id) => `products/${id}`,
-          }),
+        }),
     }),
 })
 
-export const { useGetProductsQuery,useGetProductQuery } = baseApi
+export const { useGetProductsQuery, useGetProductQuery } = baseApi
