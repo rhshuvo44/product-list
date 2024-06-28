@@ -14,6 +14,7 @@ function App() {
         style={{
           height: "80px",
           padding: "0px",
+          lineHeight: "40px",
         }}
       >
         <Navbar />

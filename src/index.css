@@ -149,9 +149,6 @@
 :where(.css-dev-only-do-not-override-m4timi).ant-layout-header {
   height: 80px !important;
   padding: 0 0px !important;
-  /* color: rgba(0, 0, 0, 0.88);
-    line-height: 64px;
-    background: #001529; */
 }
 .responsive-table-container {
   overflow-x: auto;
