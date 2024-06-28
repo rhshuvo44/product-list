@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 import { Product, useGetProductsQuery } from "../redux/api/api";
 import Loading from "./ui/Loading";
 
-
 const ProductTable = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
@@ -57,14 +56,15 @@ const ProductTable = () => {
     },
   ];
 
-  if (isLoading) return <Loading/>;
+  if (isLoading) return <Loading />;
   if (isError) return <div>Error: {isError}</div>;
 
   return (
     <div>
       <h1 className="font-bold text-3xl text-center mb-2">Product List</h1>
-      <div className="">
+      <div className="responsive-table-container">
         <Table
+          className="table-auto"
           bordered
           columns={columns}
           dataSource={data?.products}
