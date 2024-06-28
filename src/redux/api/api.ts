@@ -33,7 +33,17 @@ export const baseApi = createApi({
         getProduct: builder.query<Product, number>({
             query: (id) => `products/${id}`,
         }),
+        getCategories: builder.query<string[], void>({
+            query: () => `products/categories`,
+        }),
+        updateProduct: builder.mutation<Product, { id: number; data: Partial<Product> }>({
+            query: ({ id, data }) => ({
+                url: `products/${id}`,
+                method: 'PATCH',
+                body: data,
+            }),
+        })
     }),
 })
 
-export const { useGetProductsQuery, useGetProductQuery } = baseApi
+export const { useGetProductsQuery, useGetProductQuery, useGetCategoriesQuery, useUpdateProductMutation } = baseApi

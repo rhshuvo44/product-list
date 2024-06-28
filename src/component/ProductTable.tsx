@@ -62,7 +62,7 @@ const ProductTable = () => {
   return (
     <div>
       <h1 className="font-bold text-3xl text-center mb-2">Product List</h1>
-      <div className="w-full mx-auto h-screen">
+      <div className="">
         <Table
           bordered
           columns={columns}
