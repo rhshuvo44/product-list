@@ -1,4 +1,4 @@
-import { Button, Image } from "antd";
+import { Button, Card, Image } from "antd";
 import { Link, useParams } from "react-router-dom";
 import { useGetProductQuery } from "../redux/api/api";
 const ProductDetails = () => {
@@ -10,10 +10,10 @@ const ProductDetails = () => {
   if (!product) return <div>Product not found</div>;
 
   return (
-    <div className="">
+    <Card>
       <div className="flex justify-between items-center gap-2 space-x-4 ">
         <div className="">
-          <Image width={400} src={product.thumbnail} />
+          <Image width={400} src={product.thumbnail} alt={product.title} />
         </div>
         <div className="p-5 space-y-4">
           <h1 className="font-bold text-3xl">{product.title}</h1>
@@ -69,7 +69,7 @@ const ProductDetails = () => {
           </div>
         ))}
       </div>
-    </div>
+    </Card>
   );
 };
 

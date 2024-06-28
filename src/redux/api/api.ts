@@ -31,10 +31,10 @@ export const baseApi = createApi({
             query: ({ limit, skip }) => ({ url: `products?limit=${limit}&skip=${skip}`, method: 'GET' }),
         }),
         getProduct: builder.query<Product, number>({
-            query: (id) => `products/${id}`,
+            query: (id) => ({ url: `products/${id}`, method: "GET" }),
         }),
         getCategories: builder.query<string[], void>({
-            query: () => `products/categories`,
+            query: () => ({ url: `products/categories`, method: "GET" }),
         }),
         updateProduct: builder.mutation<Product, { id: number; data: Partial<Product> }>({
             query: ({ id, data }) => ({

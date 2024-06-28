@@ -2,6 +2,7 @@ import { Button, Table } from "antd";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Product, useGetProductsQuery } from "../redux/api/api";
+import Loading from "./ui/Loading";
 
 
 const ProductTable = () => {
@@ -48,7 +49,7 @@ const ProductTable = () => {
     {
       title: "Action",
       key: "action",
-      render: (_: any, record: Product) => (
+      render: (_: number, record: Product) => (
         <Button type="link" onClick={() => navigate(`/product/${record.id}`)}>
           View Details
         </Button>
@@ -56,7 +57,7 @@ const ProductTable = () => {
     },
   ];
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) return <Loading/>;
   if (isError) return <div>Error: {isError}</div>;
 
   return (

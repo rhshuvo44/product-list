@@ -1,11 +1,13 @@
+import { Button, Card, Form, Input, Select, message } from "antd";
 import { useEffect } from "react";
+import { useParams } from "react-router-dom";
 import {
+  Product,
   useGetCategoriesQuery,
   useGetProductQuery,
   useUpdateProductMutation,
 } from "../redux/api/api";
-import { Form, Input, Button, Select, Card, message } from "antd";
-import { useParams } from "react-router-dom";
+import Loading from "./ui/Loading";
 const { Option } = Select;
 const EditProduct = () => {
   const { id } = useParams<{ id: string }>();
@@ -13,17 +15,16 @@ const EditProduct = () => {
   const { data: categories } = useGetCategoriesQuery();
   const [updateProduct] = useUpdateProductMutation();
   const [form] = Form.useForm();
-
   useEffect(() => {
     if (data) {
       form.setFieldsValue(data);
     }
   }, [data, form]);
 
-  const onFinish = async (values: any) => {
+  const onFinish = async (values: Product) => {
     try {
       const updatedProduct = await updateProduct({
-        id: parseInt(id),
+        id: Number(id),
         data: values,
       }).unwrap();
       console.log(updatedProduct);
@@ -33,7 +34,7 @@ const EditProduct = () => {
     }
   };
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) return <Loading />;
   if (error) return <div>Error loading product details</div>;
 
   return (
@@ -78,8 +79,8 @@ const EditProduct = () => {
           >
             <Select>
               {categories?.map((category) => (
-                <Option key={category} value={category}>
-                  {category}
+                <Option key={category} value={category.name}>
+                  {category.name}
                 </Option>
               ))}
             </Select>
@@ -87,28 +88,27 @@ const EditProduct = () => {
           <Form.List name="reviews">
             {(fields, { add, remove }) => (
               <>
-                {fields.map((field) => (
-                  <div
-                    key={field.key}
-                    style={{ display: "flex", marginBottom: 8 }}
-                  >
+                {fields.map(({ key, name, fieldKey, ...restField }) => (
+                  <div key={key} style={{ display: "flex", marginBottom: 8 }}>
                     <Form.Item
-                      {...field}
-                      name={[field.name, "userId"]}
-                      fieldKey={[field.fieldKey, "userId"]}
-                      rules={[{ required: true, message: "Missing user ID" }]}
+                      {...restField}
+                      name={[name, "reviewerName"]}
+                      fieldKey={[fieldKey, "reviewerName"]}
+                      rules={[
+                        { required: true, message: "Missing Reviewer Name" },
+                      ]}
                     >
-                      <Input placeholder="User ID" />
+                      <Input placeholder="Reviewer Name" />
                     </Form.Item>
                     <Form.Item
-                      {...field}
-                      name={[field.name, "comment"]}
-                      fieldKey={[field.fieldKey, "comment"]}
+                      {...restField}
+                      name={[name, "comment"]}
+                      fieldKey={[fieldKey, "comment"]}
                       rules={[{ required: true, message: "Missing comment" }]}
                     >
                       <Input placeholder="Comment" />
                     </Form.Item>
-                    <Button type="dashed" onClick={() => remove(field.name)}>
+                    <Button type="dashed" onClick={() => remove(name)}>
                       -
                     </Button>
                   </div>
@@ -120,9 +120,11 @@ const EditProduct = () => {
             )}
           </Form.List>
           <Form.Item>
-            <Button type="primary" htmlType="submit">
-              Save
-            </Button>
+            <div className="mt-2">
+              <Button type="primary" htmlType="submit">
+                Save
+              </Button>
+            </div>
           </Form.Item>
         </Form>
       </Card>
