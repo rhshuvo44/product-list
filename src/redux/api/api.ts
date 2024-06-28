@@ -14,10 +14,13 @@ export const baseApi = createApi({
     reducerPath: 'baseApi',
     baseQuery: fetchBaseQuery({ baseUrl: 'https://dummyjson.com/' }),
     endpoints: (builder) => ({
-        getProduct: builder.query<{ products: Product[]; total: number }, { limit: number; skip: number }>({
+        getProducts: builder.query<{ products: Product[]; total: number }, { limit: number; skip: number }>({
             query: ({ limit, skip }) => ({ url: `products?limit=${limit}&skip=${skip}`, method: 'GET' }),
         }),
+        getProduct: builder.query<Product, number>({
+            query: (id) => `products/${id}`,
+          }),
     }),
 })
 
-export const { useGetProductQuery } = baseApi
+export const { useGetProductsQuery,useGetProductQuery } = baseApi

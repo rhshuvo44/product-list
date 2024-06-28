@@ -1,18 +1,18 @@
 import { Button, Table } from "antd";
 import { useState } from "react";
-import { Product, useGetProductQuery } from "../redux/api/api";
-import { useHistory } from 'react-router-dom';
+import { Product, useGetProductsQuery } from "../redux/api/api";
+
+// import { useHistory } from "react-router-dom";
 
 const ProductTable = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
-  const { data, error, isLoading } = useGetProductQuery({
+  const { data, isError, isLoading } = useGetProductsQuery({
     limit: pageSize,
     skip: (currentPage - 1) * pageSize,
   });
 
-    const history = useHistory();
-
+  
   const columns = [
     {
       title: "Title",
@@ -25,6 +25,16 @@ const ProductTable = () => {
       key: "description",
     },
     {
+      title: "Category",
+      dataIndex: "category",
+      key: "category",
+    },
+    {
+      title: "Brand",
+      dataIndex: "brand",
+      key: "brand",
+    },
+    {
       title: "Price",
       dataIndex: "price",
       key: "price",
@@ -35,7 +45,7 @@ const ProductTable = () => {
       render: (_: any, record: Product) => (
         <Button
           type="link"
-          onClick={() => history.push(`/product/${record.id}`)}
+          // onClick={() => navigate(`/product/${record.id}`)}
         >
           View Details
         </Button>
@@ -44,23 +54,29 @@ const ProductTable = () => {
   ];
 
   if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error}</div>;
+  if (isError) return <div>Error: {isError}</div>;
 
   return (
-    <Table
-      columns={columns}
-      dataSource={data?.products}
-      rowKey="id"
-      pagination={{
-        current: currentPage,
-        pageSize: pageSize,
-        total: data?.total,
-        onChange: (page, pageSize) => {
-          setCurrentPage(page);
-          setPageSize(pageSize);
-        },
-      }}
-    />
+    <div>
+      <h1 className="font-bold text-3xl text-center mb-2">Product List</h1>
+      <div className="w-full mx-auto h-screen">
+        <Table
+        bordered
+          columns={columns}
+          dataSource={data?.products}
+          rowKey="id"
+          pagination={{
+            current: currentPage,
+            pageSize: pageSize,
+            total: data?.total,
+            onChange: (page, pageSize) => {
+              setCurrentPage(page);
+              setPageSize(pageSize);
+            },
+          }}
+        />
+      </div>
+    </div>
   );
 };
 
