@@ -10,7 +10,12 @@ import ProductPages from "./pages/ProductPages";
 function App() {
   return (
     <Layout>
-      <Header>
+      <Header
+        style={{
+          height: "80px",
+          padding: "0px",
+        }}
+      >
         <Navbar />
       </Header>
       <Content style={{ padding: "50px" }}>
