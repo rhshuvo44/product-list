@@ -78,49 +78,47 @@ const EditProduct = () => {
             rules={[{ required: true, message: "Please select a category" }]}
           >
             <Select>
-              {categories?.map((category) => (
-                <Option key={category} value={category.name}>
+              {categories?.map((category, i) => (
+                <Option key={i} value={category.name}>
                   {category.name}
                 </Option>
               ))}
             </Select>
           </Form.Item>
-          <Form.Item label="Review">
-            <Form.List name="reviews">
-              {(fields, { add, remove }) => (
-                <>
-                  {fields.map(({ key, name, fieldKey, ...restField }) => (
-                    <div key={key} style={{ display: "flex", marginBottom: 8 }}>
-                      <Form.Item
-                        {...restField}
-                        name={[name, "reviewerName"]}
-                        fieldKey={[fieldKey, "reviewerName"]}
-                        rules={[
-                          { required: true, message: "Missing Reviewer Name" },
-                        ]}
-                      >
-                        <Input placeholder="Reviewer Name" />
-                      </Form.Item>
-                      <Form.Item
-                        {...restField}
-                        name={[name, "comment"]}
-                        fieldKey={[fieldKey, "comment"]}
-                        rules={[{ required: true, message: "Missing comment" }]}
-                      >
-                        <Input placeholder="Comment" />
-                      </Form.Item>
-                      <Button type="dashed" onClick={() => remove(name)}>
-                        -
-                      </Button>
-                    </div>
-                  ))}
-                  <Button type="dashed" onClick={() => add()} block>
-                    Add Review
-                  </Button>
-                </>
-              )}
-            </Form.List>
-          </Form.Item>
+          {/* <Form.Item label="Review"> */}
+          <Form.List name="reviews">
+            {(fields, { add, remove }) => (
+              <>
+                {fields.map(({ key, name, ...restField }) => (
+                  <div key={key} style={{ display: "flex", marginBottom: 8 }}>
+                    <Form.Item
+                      {...restField}
+                      name={[name, "reviewerName"]}
+                      rules={[
+                        { required: true, message: "Missing Reviewer Name" },
+                      ]}
+                    >
+                      <Input placeholder="Reviewer Name" />
+                    </Form.Item>
+                    <Form.Item
+                      {...restField}
+                      name={[name, "comment"]}
+                      rules={[{ required: true, message: "Missing comment" }]}
+                    >
+                      <Input placeholder="Comment" />
+                    </Form.Item>
+                    <Button type="dashed" onClick={() => remove(name)}>
+                      -
+                    </Button>
+                  </div>
+                ))}
+                <Button type="dashed" onClick={() => add()} block>
+                  Add Review
+                </Button>
+              </>
+            )}
+          </Form.List>
+          {/* </Form.Item> */}
           <Form.Item>
             <div className="mt-2">
               <Button type="primary" htmlType="submit">

@@ -21,6 +21,15 @@ export interface Product {
     }[];
 
 }
+export interface Category {
+
+    slug: string,
+    name: string,
+    url: string
+
+}
+
+
 
 // Define a service using a base URL and expected endpoints
 export const baseApi = createApi({
@@ -33,7 +42,7 @@ export const baseApi = createApi({
         getProduct: builder.query<Product, number>({
             query: (id) => ({ url: `products/${id}`, method: "GET" }),
         }),
-        getCategories: builder.query<string[], void>({
+        getCategories: builder.query<Category[], void>({
             query: () => ({ url: `products/categories`, method: "GET" }),
         }),
         updateProduct: builder.mutation<Product, { id: number; data: Partial<Product> }>({
